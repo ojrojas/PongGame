@@ -12,6 +12,7 @@ namespace PongCSharp.ObjectsGame
         public ConsoleKey KeyUp { get; set; }
         public ConsoleKey KeyDown { get; set; }
         public char CharacterShovel { get; set; } = 'ñ';
+        private char CharacterHideShovel { get; set; } = ' ';
 
         public void ShowShovel()
         {
@@ -25,7 +26,7 @@ namespace PongCSharp.ObjectsGame
         {
             for (int i = default; i < SizeShovel; i++)
             {
-                GotoXY(PositionX, PositionY + i); Write("  "); Write("\r");
+                GotoXY(PositionX, PositionY + i); Write(CharacterHideShovel);
             }
         }
 
@@ -42,16 +43,6 @@ namespace PongCSharp.ObjectsGame
                 PositionY++;
                 ShowShovel();
             }
-            //if (key == ConsoleKey.LeftArrow)
-            //{
-            //    PositionX--;
-            //    ShowShovel();
-            //}
-            //if (key== ConsoleKey.RightArrow)
-            //{
-            //    PositionX++;
-            //    ShowShovel();
-            //}
         }
     }
 }

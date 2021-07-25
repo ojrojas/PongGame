@@ -4,6 +4,9 @@ namespace PongCSharp.ObjectsGame
 {
     public interface IShovel
     {
+        char CharacterShovel { get; set; }
+        ConsoleKey KeyDown { get; set; }
+        ConsoleKey KeyUp { get; set; }
         int PositionX { get; set; }
         int PositionY { get; set; }
         int SizeShovel { get; set; }
