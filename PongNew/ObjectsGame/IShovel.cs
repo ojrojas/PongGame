@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace PongCSharp.ObjectsGame
-{
+namespace Pong.ObjectsGame;
     public interface IShovel
     {
         char CharacterShovel { get; set; }
@@ -15,4 +14,3 @@ namespace PongCSharp.ObjectsGame
         void Move(ConsoleKey key);
         void ShowShovel();
     }
-}
