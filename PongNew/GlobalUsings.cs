@@ -1,5 +1,6 @@
-global using Pong.ObjectsGame;
+global using Pong.PongNew.Objects;
 global using Pong.Core.Window;
-global using SDL3;
-global using static SDL3.SDL3;
-global using  Pong.Core.Objects;
+global using Pong.Core.Objects;
+global using Pong.Core.Game;
+global using System.Numerics;
+global using Pong.PongNew;
