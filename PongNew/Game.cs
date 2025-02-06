@@ -58,4 +58,22 @@ public class Game : BaseGame
     {
         ball.MoveLeft();
     }
+
+    private void DetectCollision()
+    {
+        var ballCollisionBySideDetector = new CollisionDetector<Side, BaseObject>([side1, side2]);
+        var ballCollisionByRacketDetector = new CollisionDetector<Racket, BaseObject>([racket1, racket2]);
+
+        ballCollisionBySideDetector.DetectCollisions([ball], (side, ball) =>
+        {
+            var hitSideEvent = new BaseObjectEvent.ObjectHitBy(side.Name);
+            ball.OnNotify(hitSideEvent);
+        });
+
+        ballCollisionByRacketDetector.DetectCollisions([ball], (racket, ball) =>
+        {
+            var hitRacketEvent = new BaseObjectEvent.ObjectHitBy(racket.Name);
+             ball.OnNotify(hitRacketEvent);
+        });
+    }
 }

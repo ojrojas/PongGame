@@ -9,8 +9,9 @@ public class Racket : BaseObject
 
     public Racket(int racketId) => _racketId = racketId;
 
-    public void Move()
+    public Racket()
     {
-
+        AddBoundingBox(new (Position, Width, Height));
     }
+    
 }
