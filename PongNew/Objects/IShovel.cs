@@ -1,6 +1,6 @@
 ﻿namespace Pong.PongNew.Objects;
 
-public interface IShovel
+public interface IRacket
 {
     void Move();
 }

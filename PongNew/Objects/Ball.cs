@@ -2,7 +2,7 @@
 
 class Ball : BaseObject
 {  
-    public override float _speed => 1f;
+    public override float _speed => 5f;
     public override string Name => "Ball";
     public override float Height => 20f;
     public override float Width => 20f;
