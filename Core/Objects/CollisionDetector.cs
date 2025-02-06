@@ -22,11 +22,6 @@ where A : BaseObject
         }
     }
 
-    /// <summary>
-    /// Detect all collisions and call a handler where a passive object *hits* an active object
-    /// </summary>
-    /// <param name="activeObjects"></param>
-    /// <param name="collisionHandler"></param>
     public void DetectCollisions(IEnumerable<A> activeObjects, Action<B, A> collisionHandler)
     {
         foreach (var passiveObject in _passiveObjects)

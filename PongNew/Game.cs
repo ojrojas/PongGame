@@ -57,6 +57,7 @@ public class Game : BaseGame
     public override void Update()
     {
         ball.MoveLeft();
+        DetectCollision();
     }
 
     private void DetectCollision()
