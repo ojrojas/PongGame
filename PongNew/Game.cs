@@ -10,6 +10,7 @@ public class Game : BaseGame
     private Side side2;
     private Racket racket1;
     private Racket racket2;
+    private Net net;
 
     public Game(string title, (int width, int height) gameSize)
     {
@@ -36,6 +37,7 @@ public class Game : BaseGame
         side2 = new(2);
         racket1 = new(1);
         racket2 = new(2);
+        net = new(Height, Width, 20);
 
         AddObjects(ball);
         AddObjects(side1);
@@ -43,6 +45,8 @@ public class Game : BaseGame
 
         AddObjects(racket1);
         AddObjects(racket2);
+
+        AddObjects(net);
 
         ball.Position = new Vector2(Width / 2, Height / 2);
         side2.Position = new Vector2(0, Height - side2.Height);

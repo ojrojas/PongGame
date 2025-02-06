@@ -1,6 +1,6 @@
 ﻿namespace Pong.PongNew.Objects;
 
-public class Racket : BaseObject, IRacket
+public class Racket : BaseObject
 {
     private readonly int _racketId;
     public override float Height => 200f;
