@@ -1,15 +1,10 @@
 namespace Pong.Core.Objects;
 
-public class CollisionDetector<B, A>
+public class CollisionDetector<B, A>(IEnumerable<B> passiveObjects)
 where B : BaseObject
 where A : BaseObject
 {
-    private IEnumerable<B> _passiveObjects;
-
-    public CollisionDetector(IEnumerable<B> passiveObjects)
-    {
-        _passiveObjects = passiveObjects;
-    }
+    private IEnumerable<B> _passiveObjects = passiveObjects;
 
     public void DetectCollisions(A activeObject, Action<B, A> collisionHandler)
     {

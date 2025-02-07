@@ -6,13 +6,7 @@ public class BoundingBox
     public float Height { get; set; }
     public float Width { get; set; }
 
-    public Rectangle Rectangle
-    {
-        get
-        {
-            return new Rectangle((int)Position.X, (int)Position.Y, (int)Width, (int)Height);
-        }
-    }
+    public Rectangle Rectangle=> new((int)Position.X, (int)Position.Y, (int)Width, (int)Height);
 
     public BoundingBox(Vector2 position, float width, float height)
     {

@@ -6,7 +6,7 @@ public class BaseObject
     protected Vector2 _position = Vector2.One;
     public virtual float Width { get; set; }
     public virtual float Height { get; set; }
-    public virtual float _speed => 0f;
+    public virtual float _speed { get; set; }
     protected float _angle;
     protected Vector2 _direction;
     protected IList<BoundingBox> _boundingBoxes = [];
@@ -14,9 +14,12 @@ public class BaseObject
     public event EventHandler<IBaseObjectEvent> OnObjectReported;
     public virtual void OnNotify(IBaseObjectEvent eventGame) { }
 
-    public void SendEvent(IBaseObjectEvent eventGame)
+    public void SendEvent(IBaseObjectEvent eventGame) => OnObjectReported?.Invoke(this, eventGame);
+
+    public virtual Vector2 Direction
     {
-        OnObjectReported?.Invoke(this, eventGame);
+        get => _direction;
+        set => _direction = value;
     }
 
     public virtual Vector2 Position
@@ -29,9 +32,7 @@ public class BaseObject
             _position = value;
 
             foreach (var bb in _boundingBoxes)
-            {
                 bb.Position = new Vector2(bb.Position.X + deltaX, bb.Position.Y + deltaY);
-            }
         }
     }
 
@@ -45,18 +46,9 @@ public class BaseObject
         }
     }
 
-    public void AddBoundingBox(BoundingBox bb)
-    {
-        _boundingBoxes.Add(bb);
-    }
+    public void AddBoundingBox(BoundingBox bb) => _boundingBoxes.Add(bb);
 
-    public IList<BoundingBox> BoundingBoxes
-    {
-        get
-        {
-            return _boundingBoxes;
-        }
-    }
+    public IList<BoundingBox> BoundingBoxes => _boundingBoxes;
 
     public virtual unsafe void Draw(SDL_Renderer renderer)
     {

@@ -1,3 +1,5 @@
+using SDL3;
+
 namespace Pong.PongNew;
 
 public class Game : BaseGame
@@ -26,9 +28,15 @@ public class Game : BaseGame
         LoadContent();
     }
 
-    public override void Input()
+    public override void Input(SDL_Event @event)
     {
-
+        switch (@event.type)
+        {
+            case SDL_EventType.GamepadButtonDown:
+                break;
+            default:
+                break;
+        }
     }
 
     public override void LoadContent()
@@ -40,25 +48,25 @@ public class Game : BaseGame
         racket2 = new(2);
         net = new(Height, Width, 20);
 
-        AddObjects(ball);
+        AddObjects(net);
         AddObjects(side1);
         AddObjects(side2);
 
         AddObjects(racket1);
         AddObjects(racket2);
-
-        AddObjects(net);
+        AddObjects(ball);
 
         ball.Position = new Vector2(Width / 2, Height / 2);
         side1.Position = Vector2.Zero;
         side2.Position = new Vector2(0, Height - side2.Height);
         racket1.Position = new Vector2(0, Height / 2);
         racket2.Position = new Vector2(Width - racket2.Width, Height / 2);
+        net.Position = new(Width / 2, 0);
     }
 
     public override void Update()
     {
-        ball.MoveLeft();
+        ball.Move();
         DetectCollision();
     }
 
@@ -76,7 +84,7 @@ public class Game : BaseGame
         ballCollisionByRacketDetector.DetectCollisions(ball, (racket, ball) =>
         {
             var hitRacketEvent = new BaseObjectEvent.ObjectHitBy(racket.Name);
-             ball.OnNotify(hitRacketEvent);
+            ball.OnNotify(hitRacketEvent);
         });
     }
 }

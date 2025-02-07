@@ -10,10 +10,10 @@ public sealed unsafe class MainWindow
         GetVersionSDL();
         Initialize();
         _window = SDL_CreateWindow(title, windowSize.w, windowSize.h, SDL_WindowFlags.Resizable);
-        _renderer = SDL_CreateRenderer(_window,"");
-        if (_window.IsNull && _renderer.IsNull)
+        _renderer = SDL_CreateRenderer(_window, "");
+        if (_window.IsNull || _renderer.IsNull)
         {
-            LogError("Error to create window or renderer ", SDL_GetError());            
+            LogError($"Error to create window or renderer {SDL_GetError()}" );            
             throw new InvalidOperationException("Failed to create window or renderer");
         }
 

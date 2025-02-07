@@ -2,13 +2,13 @@ namespace Pong.Core.Game;
 
 public abstract class BaseGame
 {
-    private readonly IList<BaseObject> _gameObjects = new List<BaseObject>();
+    private readonly IList<BaseObject> _gameObjects = [];
     private bool gameOver = false;
     protected bool _debug = false;
     public abstract void Initialize();
     public abstract void Update();
     public abstract void LoadContent();
-    public abstract void Input();
+    public abstract void Input(SDL_Event @event);
     public void Draw()
     {
         SDL_SetRenderDrawColor(_mainWindow.GetRenderer(), 10, 100, 200, 0xff);
@@ -26,10 +26,7 @@ public abstract class BaseGame
         }
     }
 
-    public virtual void AddObjects(BaseObject gameObject)
-    {
-        _gameObjects.Add(gameObject);
-    }
+    public virtual void AddObjects(BaseObject gameObject) => _gameObjects.Add(gameObject);
 
     public void SetIsGameOver(bool isGameOver) => gameOver = isGameOver;
 
@@ -47,7 +44,7 @@ public abstract class BaseGame
                     break;
             }
 
-            Input();
+            Input(@event);
             Draw();
             Update();
         }
