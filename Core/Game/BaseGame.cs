@@ -4,6 +4,7 @@ public abstract class BaseGame
 {
     private readonly IList<BaseObject> _gameObjects = new List<BaseObject>();
     private bool gameOver = false;
+    protected bool _debug = false;
     public abstract void Initialize();
     public abstract void Update();
     public abstract void LoadContent();
@@ -20,6 +21,8 @@ public abstract class BaseGame
         foreach (var gameObject in _gameObjects)
         {
             gameObject.Draw(_mainWindow.GetRenderer());
+            if (_debug)
+                gameObject.RenderBoundingBoxes(_mainWindow.GetRenderer());
         }
     }
 

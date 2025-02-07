@@ -7,10 +7,14 @@ class Ball : BaseObject
     public override float Height => 20f;
     public override float Width => 20f;
 
+    public Ball()
+    {
+        AddBoundingBox(new(Position, Width, Height));
+    }
+
     public void MoveLeft()
     {
         Position = new Vector2(Position.X - _speed, Position.Y);
-        AddBoundingBox(new(Position, Width, Height));
     }
 
     public void MoveRight()

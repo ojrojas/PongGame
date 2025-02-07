@@ -7,11 +7,9 @@ public class Racket : BaseObject
     public override float Width => 20f;
     public override string Name => $"Racket{_racketId}";
 
-    public Racket(int racketId) => _racketId = racketId;
-
-    public Racket()
+    public Racket(int racketId)
     {
-        AddBoundingBox(new (Position, Width, Height));
+        _racketId = racketId;
+        AddBoundingBox(new(Position, Width, Height));
     }
-    
 }

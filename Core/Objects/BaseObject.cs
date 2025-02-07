@@ -12,8 +12,8 @@ public class BaseObject
     protected IList<BoundingBox> _boundingBoxes = [];
 
     public event EventHandler<IBaseObjectEvent> OnObjectReported;
-    public virtual void OnNotify(IBaseObjectEvent eventGame){}
-    
+    public virtual void OnNotify(IBaseObjectEvent eventGame) { }
+
     public void SendEvent(IBaseObjectEvent eventGame)
     {
         OnObjectReported?.Invoke(this, eventGame);
@@ -32,6 +32,16 @@ public class BaseObject
             {
                 bb.Position = new Vector2(bb.Position.X + deltaX, bb.Position.Y + deltaY);
             }
+        }
+    }
+
+    public unsafe void RenderBoundingBoxes(SDL_Renderer renderer)
+    {
+        foreach (var bb in _boundingBoxes)
+        {
+            RectangleF ptr = new(new PointF(bb.Position), new SizeF(bb.Width, bb.Height));
+            SDL_SetRenderDrawColor(renderer, 150, 50, 50, 0);
+            var result = SDL_RenderFillRect(renderer, &ptr);
         }
     }
 

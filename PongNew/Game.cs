@@ -12,12 +12,13 @@ public class Game : BaseGame
     private Racket racket2;
     private Net net;
 
-    public Game(string title, (int width, int height) gameSize)
+    public Game(string title, (int width, int height) gameSize, bool debug = false)
     {
         _mainWindow = new MainWindow(title, gameSize);
         Width = gameSize.width;
         Height = gameSize.height;
         Initialize();
+        _debug = debug;
     }
 
     public override void Initialize()
@@ -49,6 +50,7 @@ public class Game : BaseGame
         AddObjects(net);
 
         ball.Position = new Vector2(Width / 2, Height / 2);
+        side1.Position = Vector2.Zero;
         side2.Position = new Vector2(0, Height - side2.Height);
         racket1.Position = new Vector2(0, Height / 2);
         racket2.Position = new Vector2(Width - racket2.Width, Height / 2);
@@ -62,16 +64,16 @@ public class Game : BaseGame
 
     private void DetectCollision()
     {
-        var ballCollisionBySideDetector = new CollisionDetector<Side, BaseObject>([side1, side2]);
-        var ballCollisionByRacketDetector = new CollisionDetector<Racket, BaseObject>([racket1, racket2]);
+        var ballCollisionBySideDetector = new CollisionDetector<Side, Ball>([side1, side2]);
+        var ballCollisionByRacketDetector = new CollisionDetector<Racket, Ball>([racket1, racket2]);
 
-        ballCollisionBySideDetector.DetectCollisions([ball], (side, ball) =>
+        ballCollisionBySideDetector.DetectCollisions(ball, (side, ball) =>
         {
             var hitSideEvent = new BaseObjectEvent.ObjectHitBy(side.Name);
             ball.OnNotify(hitSideEvent);
         });
 
-        ballCollisionByRacketDetector.DetectCollisions([ball], (racket, ball) =>
+        ballCollisionByRacketDetector.DetectCollisions(ball, (racket, ball) =>
         {
             var hitRacketEvent = new BaseObjectEvent.ObjectHitBy(racket.Name);
              ball.OnNotify(hitRacketEvent);
