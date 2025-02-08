@@ -6,14 +6,14 @@ class Ball : BaseObject
     public override float Height => 20f;
     public override float Width => 20f;
     public float _speedY { get; set; }
+    public bool _ballisOut;
+    private Random random = new();
 
     public Ball()
     {
         AddBoundingBox(new(Position, Width, Height));
         Direction = new Vector2(-1, 0);
-        var random = new Random();
-        _speed = random.Next(0, 2) == 0 ? 4 : -4;
-        _speedY = random.Next(0, 2) == 0 ? 4 : -4;
+        RestarBall();
     }
 
     public void Move()
@@ -27,6 +27,8 @@ class Ball : BaseObject
         {
             case BaseObjectEvent.ObjectHitBy o:
                 JustHitSide(o.HitBy);
+                _speed += 0.1f;
+                _speedY += 0.1f;
                 break;
             default:
                 break;
@@ -52,16 +54,19 @@ class Ball : BaseObject
             case "Racket2":
                 LogInformation("Hit by Racket2");
                 _speed *= -1;
-
+                break;
+            case "Dashboard":
+                _ballisOut = true;
                 break;
             default:
                 break;
         }
     }
 
-    public enum BallDirection
+    public void RestarBall()
     {
-        Left,
-        Right,
+        _speed = random.Next(0, 2) == 0 ? 4 : -4;
+        _speedY = random.Next(0, 2) == 0 ? 4 : -4;
+        _ballisOut = false;
     }
 }

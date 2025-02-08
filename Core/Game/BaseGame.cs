@@ -1,3 +1,5 @@
+using Pong.Core.Inputs;
+
 namespace Pong.Core.Game;
 
 public abstract class BaseGame
@@ -9,6 +11,10 @@ public abstract class BaseGame
     public abstract void Update();
     public abstract void LoadContent();
     public abstract void Input(SDL_Event @event);
+
+    protected InputManager InputManager {get;set;}
+    protected abstract void SetInputManager();
+
     public void Draw()
     {
         SDL_SetRenderDrawColor(_mainWindow.GetRenderer(), 10, 100, 200, 0xff);
@@ -16,6 +22,7 @@ public abstract class BaseGame
         Render();
         SDL_RenderPresent(_mainWindow.GetRenderer());
     }
+    
     public virtual void Render()
     {
         foreach (var gameObject in _gameObjects)

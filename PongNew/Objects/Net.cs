@@ -1,6 +1,3 @@
-using System.Drawing;
-using SDL3;
-
 namespace Pong.PongNew.Objects;
 
 public class Net : BaseObject

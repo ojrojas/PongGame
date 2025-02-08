@@ -2,7 +2,7 @@ using SDL3;
 
 namespace Pong.PongNew;
 
-public class Game : BaseGame
+public partial class Game : BaseGame
 {
     private int Width;
     private int Height;
@@ -13,6 +13,8 @@ public class Game : BaseGame
     private Racket racket1;
     private Racket racket2;
     private Net net;
+    Dashboard dashboard;
+
 
     public Game(string title, (int width, int height) gameSize, bool debug = false)
     {
@@ -25,23 +27,24 @@ public class Game : BaseGame
 
     public override void Initialize()
     {
+        SetInputManager();
         LoadContent();
+    }
+
+    protected override void SetInputManager()
+    {
+        InputManager = new InputManager(new GameInputMapper());
     }
 
     public override void Input(SDL_Event @event)
     {
-        switch (@event.type)
-        {
-            case SDL_EventType.GamepadButtonDown:
-                break;
-            default:
-                break;
-        }
+        InputHandler(@event);
     }
 
     public override void LoadContent()
     {
         ball = new();
+        dashboard = new(Width, Height);
         side1 = new(1);
         side2 = new(2);
         racket1 = new(1);
@@ -68,12 +71,14 @@ public class Game : BaseGame
     {
         ball.Move();
         DetectCollision();
+        ValidateOutBall();
     }
 
     private void DetectCollision()
     {
         var ballCollisionBySideDetector = new CollisionDetector<Side, Ball>([side1, side2]);
         var ballCollisionByRacketDetector = new CollisionDetector<Racket, Ball>([racket1, racket2]);
+        var ballOutDashboardDetector = new CollisionDetector<Dashboard,Ball>([dashboard]);
 
         ballCollisionBySideDetector.DetectCollisions(ball, (side, ball) =>
         {
@@ -86,5 +91,27 @@ public class Game : BaseGame
             var hitRacketEvent = new BaseObjectEvent.ObjectHitBy(racket.Name);
             ball.OnNotify(hitRacketEvent);
         });
+
+        ballOutDashboardDetector.DetectCollisions(ball, (dash, ball) => {
+            var hitDashboardEvent = new BaseObjectEvent.ObjectHitBy(dash.Name);
+            ball.OnNotify(hitDashboardEvent);
+        });
+    }
+
+    private void ValidateBounds(Racket racket)
+    {
+        if (racket.Position.Y <= 0)
+            racket.Position = new Vector2(racket.Position.X, 1);
+        if (racket.Position.Y >= (Height - racket.Height))
+            racket.Position = new Vector2(racket.Position.X, (Height - racket.Height) - 1);
+    }
+
+    private void ValidateOutBall()
+    {
+        if (ball._ballisOut)
+        {
+            ball.Position = new Vector2(Width / 2, Height / 2);
+            ball.RestarBall();
+        }
     }
 }
