@@ -41,19 +41,19 @@ class Ball : BaseObject
         {
             case "Side1":
                 LogInformation("Hit by Side1");
-                _speedY *= -1;
+                _speedY *= -1.11f;
                 break;
             case "Side2":
                 LogInformation("Hit by Side2");
-                _speedY *= -1;
+                _speedY *= -1.11f;
                 break;
             case "Racket1":
                 LogInformation("Hit by Racket1");
-                _speed *= -1;
+                _speed *= -1.11f;
                 break;
             case "Racket2":
                 LogInformation("Hit by Racket2");
-                _speed *= -1;
+                _speed *= -1.11f;
                 break;
             case "Dashboard":
                 _ballisOut = true;

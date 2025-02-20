@@ -62,8 +62,8 @@ public partial class Game : BaseGame
         ball.Position = new Vector2(Width / 2, Height / 2);
         side1.Position = Vector2.Zero;
         side2.Position = new Vector2(0, Height - side2.Height);
-        racket1.Position = new Vector2(0, Height / 2);
-        racket2.Position = new Vector2(Width - racket2.Width, Height / 2);
+        racket1.Position = new Vector2(0, (Height / 2)- racket1.Height/2);
+        racket2.Position = new Vector2(Width - racket2.Width, (Height / 2) -racket2.Height/2);
         net.Position = new(Width / 2, 0);
     }
 

@@ -6,7 +6,7 @@ public class Racket : BaseObject
     public override float Height => 200f;
     public override float Width => 20f;
     public override string Name => $"Racket{_racketId}";
-    public override float _speed => 10f;
+    public override float _speed => 20f;
 
     public Racket(int racketId)
     {
